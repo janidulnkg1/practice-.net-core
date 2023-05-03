@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\EmployeeManagement",
+    "\\EmployeeManagement\\Controllers"
   ],
-  "SelectedNode": "\\EmployeeManagement.sln",
+  "SelectedNode": "\\EmployeeManagement\\Controllers\\DepartmentController.cs",
   "PreviewInSolutionExplorer": false
 }
