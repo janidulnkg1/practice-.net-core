@@ -82,6 +82,7 @@ namespace EmployeeManagement.Controllers
                 mycon.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
                 {
+                    myCommand.Parameters.AddWithValue("@DepartmentId", dep.DepartmentId);
                     myCommand.Parameters.AddWithValue("@DepartmentName", dep.DepartmentName);
 
                     myReader = myCommand.ExecuteReader();
@@ -98,7 +99,7 @@ namespace EmployeeManagement.Controllers
         [HttpDelete("/department/delete/{id}")]
         public JsonResult Delete(int id)
         {
-            string query = @"delete Department where DepartmentId=@DepartmentId;";
+            string query = @"delete from Department where DepartmentId=@DepartmentId;";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
@@ -108,7 +109,7 @@ namespace EmployeeManagement.Controllers
                 mycon.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@DepartmentName", id);
+                    myCommand.Parameters.AddWithValue("@DepartmentId", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
