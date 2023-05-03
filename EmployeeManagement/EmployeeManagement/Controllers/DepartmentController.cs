@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 using EmployeeManagement.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace EmployeeManagement.Controllers
 {
@@ -17,13 +18,13 @@ namespace EmployeeManagement.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet]
+        [HttpGet("/department/getall")]
         public JsonResult Get()
         {
-            string query = @"select Departmentid,DepartmentName from dbo.Department";
+            string query = @"select Departmentid,DepartmentName from Department";
 
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
             {
@@ -42,13 +43,13 @@ namespace EmployeeManagement.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("/department/add")]
         public JsonResult Post(Department dep)
         {
-            string query = @"insert into dbo.Department (DepartmentName) values (@DepartmentName)";
+            string query = @"insert into Department (DepartmentName) values (@DepartmentName)";
 
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
             {
@@ -68,13 +69,13 @@ namespace EmployeeManagement.Controllers
             return new JsonResult("Department Added Successfully!");
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("/department/update")]
         public JsonResult Put(Department dep)
         {
-            string query = @"update dbo.Department set DepartmentName =@DepartmentName where DepartmentId=@DepartmentId;";
+            string query = @"update Department set DepartmentName =@DepartmentName where DepartmentId=@DepartmentId;";
 
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
             {
@@ -94,13 +95,13 @@ namespace EmployeeManagement.Controllers
             return new JsonResult("Department Updated Successfully!");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("/department/delete/{id}")]
         public JsonResult Delete(int id)
         {
-            string query = @"update dbo.Department set DepartmentName =@DepartmentName where DepartmentId=@DepartmentId;";
+            string query = @"delete Department where DepartmentId=@DepartmentId;";
 
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
             MySqlDataReader myReader;
             using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
             {
