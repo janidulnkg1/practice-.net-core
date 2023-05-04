@@ -44,7 +44,7 @@ namespace EmployeeManagement.Controllers
 
 
         [HttpPost("/department/add")]
-        public JsonResult Post(Department dep)
+        public JsonResult Post(string department)
         {
             string query = @"insert into Department (DepartmentName) values (@DepartmentName)";
 
@@ -56,7 +56,7 @@ namespace EmployeeManagement.Controllers
                 mycon.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@DepartmentName", dep.DepartmentName);
+                    myCommand.Parameters.AddWithValue("@DepartmentName", department);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -70,7 +70,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPut("/department/update")]
-        public JsonResult Put(Department dep)
+        public JsonResult Put(int departmetnId, string department)
         {
             string query = @"update Department set DepartmentName =@DepartmentName where DepartmentId=@DepartmentId;";
 
@@ -82,8 +82,8 @@ namespace EmployeeManagement.Controllers
                 mycon.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
                 {
-                    myCommand.Parameters.AddWithValue("@DepartmentId", dep.DepartmentId);
-                    myCommand.Parameters.AddWithValue("@DepartmentName", dep.DepartmentName);
+                    myCommand.Parameters.AddWithValue("@DepartmentId", departmetnId);
+                    myCommand.Parameters.AddWithValue("@DepartmentName", department);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

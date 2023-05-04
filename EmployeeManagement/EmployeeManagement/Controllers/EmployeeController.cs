@@ -43,7 +43,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost("/employee/add")]
-        public JsonResult Post(int employeeId, string employeeName, string department, string dateOfJoining, string photoFileName)
+        public JsonResult Post(string employeeName, string department, string dateOfJoining, string photoFileName)
         {
             string query = @"insert into Employee (EmployeeName,Department,DateofJoining,PhotoFileName) values (@EmployeeName,@Department,@DateofJoining,@PhotoFileName)";
 
