@@ -77,7 +77,7 @@ namespace EmployeeManagement.Controllers
         [HttpPut("/employee/update")]
         public JsonResult Put(int employeeId,string employeeName, string department, string dateOfJoining,string photoFileName)
         {
-            string query = @"update Employee set (EmployeeName,Department,DateofJoining,PhotoFileName) values (@EmployeeName,@Department,@DateofJoining,@PhotoFileName) where EmployeeId=@EmployeeId";
+            string query = @"update Employee set EmployeeName=@EmployeeName,Department=@Department,DateofJoining=@DateofJoining,PhotoFileName=@PhotoFileName values where EmployeeId=@EmployeeId";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("DefaultConnection");
